@@ -7,4 +7,8 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
-      
+      - run: |
+          export GOPATH=$HOME/go && \
+          export GOBIN=$GOPATH/bin && \
+          export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
+          make clean test-unit
