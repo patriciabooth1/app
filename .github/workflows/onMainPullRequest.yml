@@ -1,0 +1,10 @@
+on:
+  pull_request:
+    branches:
+      - main
+jobs:
+  test-unit:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+      
