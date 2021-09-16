@@ -21,7 +21,7 @@ func TestUnitRegisterRoutes(t *testing.T) {
 		Register(router, log)
 
 		So(router.GetRoute("health-check"), ShouldNotBeNil)
-		So(router.GetRoute("adsdas"), ShouldNotBeNil)
+		So(router.GetRoute("test"), ShouldNotBeNil)
 	})
 }
 
