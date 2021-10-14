@@ -16,4 +16,3 @@ jobs:
           SLACK_USERNAME: patricia
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: $GITHUB_ACTOR
-          SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
