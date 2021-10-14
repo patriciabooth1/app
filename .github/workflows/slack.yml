@@ -18,4 +18,4 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-          SLACK_ICON_EMOJI: :partyparrot:
+          SLACK_ICON_EMOJI: ':partyparrot:'
