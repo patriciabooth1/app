@@ -1,5 +1,5 @@
 .idea/
 
 executable
-.github/workflows/onMainPullRequest.yml
-.github/workflows/onMainPush.yml
+*/onMainPullRequest.yml
+*/onMainPush.yml
