@@ -1,0 +1,25 @@
+on:
+  push:
+    branches:
+      - main
+jobs:
+  publish:
+    runs-on: self-hosted
+        slackNotification:
+          name: Slack Notification
+          steps:
+          - uses: actions/checkout@v2
+          - name: Slack Notification
+            uses: aws-actions/configure-aws-credentials@v1
+            env:
+              SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
+- name: Slack Notification
+      uses: actions/action-slack-notify@v2
+      env:
+        SLACK_CHANNEL: coincover-devops-alert
+        SLACK_COLOR: ${{ job.status }}
+        SLACK_MESSAGE: 'Post Content :partyparrot:'
+        SLACK_TITLE: Message:
+        SLACK_USERNAME: patricia
+        SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
+        SLACK_MSG_AUTHOR: $GITHUB_ACTOR
