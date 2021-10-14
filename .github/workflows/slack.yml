@@ -8,14 +8,6 @@ jobs:
     steps:
       - name: Slack Notification
         uses: actions/checkout@v2
-      - name: Slack Notification
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: eu-west-2
-        env:
-          SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
-      - name: Slack Notification
-        uses: actions/checkout@v2
         env:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
@@ -24,3 +16,4 @@ jobs:
           SLACK_USERNAME: patricia
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: $GITHUB_ACTOR
+          SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
