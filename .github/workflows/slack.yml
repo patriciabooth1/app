@@ -7,7 +7,7 @@ jobs:
     runs-on: self-hosted
     steps:
       - name: Slack Notification
-        uses: actions/checkout@v2
+        uses: slackapi/slack-github-action@v1.14.0
         env:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
