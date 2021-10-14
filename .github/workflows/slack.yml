@@ -13,7 +13,7 @@ jobs:
         env:
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
       - name: Slack Notification
-        uses: actions/action-slack-notify@v2
+        uses: actions/checkout@v2
         env:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
