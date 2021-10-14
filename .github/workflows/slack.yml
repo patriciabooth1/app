@@ -13,9 +13,8 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: : '
-          SLACK_MESSAGE: '@${{ github.actor }} pushed commits.'
+          SLACK_MESSAGE: '@Patricia Booth pushed commits.'
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-          SLACK_ICON_EMOJI: ':partyparrot:'
