@@ -4,27 +4,77 @@ on:
       - main
 jobs:
   publish:
-    runs-on: self-hosted
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Configure AWS creds
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-region: eu-west-2
-      - name: Log in to Amazon ECR
-        id: login-ecr
-        uses: aws-actions/amazon-ecr-login@v1
-      - name: Build, tag, and push image to Amazon ECR
-        env:
-          ECR_REGISTRY: 315199611892.dkr.ecr.eu-west-2.amazonaws.com
-          ECR_REPOSITORY: ecr-repo-name
-          IMAGE_TAG: asdfghjklzxcvbnmqwertyuiop
-        run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      - name: Log out of Amazon ECR
-        if: always()
-        run: docker logout 315199611892.dkr.ecr.eu-west-2.amazonaws.com
-      - name: Clean up old Docker images
-        run: docker system prune -a -f
+    job1:
+      runs-on: self-hosted
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v2
+        - name: Configure AWS creds
+          uses: aws-actions/configure-aws-credentials@v1
+          with:
+            aws-region: eu-west-2
+    job2:
+      runs-on: self-hosted
+      steps:
+        - name: Log in to Amazon ECR
+          id: login-ecr
+          uses: aws-actions/amazon-ecr-login@v1
+    job3:
+      runs-on: self-hosted
+      steps:
+        - name: Build, tag, and push image to Amazon ECR
+          env:
+            ECR_REGISTRY: 315199611892.dkr.ecr.eu-west-2.amazonaws.com
+            ECR_REPOSITORY: ecr-repo-name
+            IMAGE_TAG: asdfghjklzxcvbnmqwertyuiop
+          run: |
+            docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+            docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+    job4:
+      runs-on: self-hosted
+      steps:
+        - name: Log out of Amazon ECR
+          if: always()
+          run: docker logout 315199611892.dkr.ecr.eu-west-2.amazonaws.com
+    job5:
+      runs-on: self-hosted
+      steps:
+        - name: Clean up old Docker images
+          run: docker system prune -a -f
+    job6:
+      steps:
+        - name: Fail
+          run: |
+            exit 1
+    job10:
+      runs-on: self-hosted
+      steps:
+        - name: Slack Notification
+          uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_CHANNEL: coincover-devops-alert
+            SLACK_COLOR: ${{ job.status }}
+            SLACK_ICON: https://assets.coincover.com/images/logo-square.png
+            SLACK_TITLE: 'Message :partyparrot: : '
+            SLACK_MESSAGE: '@patricia pushed commits.'
+            SLACK_USERNAME: Github
+            SLACK_LINK_NAMES: true
+            SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
+            SLACK_MSG_AUTHOR: ${{ github.actor }}
+    run-if-failed:
+      runs-on: self-hosted
+      needs: [job1, job2, job3, job4, job5, job6]
+      if: always() && (needs.job1.result == 'failure' || needs.job2.result == 'failure'|| needs.job3.result == 'failure'|| needs.job4.result == 'failure'|| needs.job5.result == 'failure')
+      steps:
+        - name: Slack Notification
+          uses: rtCamp/action-slack-notify@v2
+          env:
+            SLACK_CHANNEL: coincover-devops-alert
+            SLACK_COLOR: ${{ job.status }}
+            SLACK_ICON: https://assets.coincover.com/images/logo-square.png
+            SLACK_TITLE: 'Message :fire::fire::fire: : '
+            SLACK_MESSAGE: '@patricia pushed commits, but something failed '
+            SLACK_USERNAME: Github
+            SLACK_LINK_NAMES: true
+            SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
+            SLACK_MSG_AUTHOR: ${{ github.actor }}
