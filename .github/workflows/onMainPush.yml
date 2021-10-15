@@ -91,11 +91,12 @@ jobs:
         with:
           status: ${{ job.status }}
           notification_title: 'Needed for Pull Request'
-          message_format: 'Please look at failed commits'
+          message_format: 'Please look at failed commits: {:partyparrot:} *{Main}* {failed} in {https://github.com/patriciabooth1/app.git}|{app}'
           notify_when: 'failure'
-          mention_users: '@patricia ,@brad'
+          mention_users: 'U02HSKQ8DTM'
           mention_users_when: 'failure,warnings'
-          mention_groups: 'C02HU6M45GC'
+          footer: 'Linked Repo {https://github.com/patriciabooth1/app.git}|{app} '
+          mention_groups: 'prodeng'
           mention_groups_when: 'failure,warnings'
         env:
           SLACK_WEBHOOK_URL: ${{ secrets.SLACKWEBHOOK }}
