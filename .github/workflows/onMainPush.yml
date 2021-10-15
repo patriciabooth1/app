@@ -43,7 +43,7 @@ jobs:
   job10:
     runs-on: self-hosted
     needs: [job1, job2, job3, job4]
-    if: always() && (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success' || needs.job4.result == 'success')
+    if: (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success' || needs.job4.result == 'success')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
@@ -52,7 +52,7 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :partyparrot: : successful:  '
+          SLACK_TITLE: 'Message :partyparrot:  successful:  '
           SLACK_MESSAGE: 'Post Content'
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
@@ -73,7 +73,7 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire: : something failed :'
+          SLACK_TITLE: 'Message :fire::fire::fire:  something failed :'
           SLACK_MESSAGE: 'Post Content'
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
