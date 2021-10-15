@@ -77,8 +77,10 @@ jobs:
           SLACK_TITLE: 'Message :fire::fire::fire:'
           SLACK_MESSAGE: 'something failed @here'
           SLACK_USERNAME: Github
+          MSG_MINIMAL: ref
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
+
           SLACK_MSG_AUTHOR: ${{ github.actor }}
       - name: Slack Notification Post
         run: |
