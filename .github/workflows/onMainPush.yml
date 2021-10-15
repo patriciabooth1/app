@@ -51,8 +51,8 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :partyparrot: : '
-          SLACK_MESSAGE: '@patricia pushed commits.'
+          SLACK_TITLE: 'Message :partyparrot: successful:  '
+          SLACK_MESSAGE: 'Post Content: '
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
@@ -69,8 +69,8 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire: :'
-          SLACK_MESSAGE: '/giphy this is fine @patricia pushed commits, but something failed '
+          SLACK_TITLE: 'Message :fire::fire::fire: something failed :'
+          SLACK_MESSAGE: 'Post Content:  '
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
