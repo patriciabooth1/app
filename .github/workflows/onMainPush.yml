@@ -77,7 +77,7 @@ jobs:
           SLACK_TITLE: 'Message :fire::fire::fire:'
           SLACK_MESSAGE: 'something failed @here'
           SLACK_USERNAME: Github
-          MSG_MINIMAL: event, actions url
+          MSG_MINIMAL: event,actions url
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
 
