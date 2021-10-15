@@ -42,7 +42,7 @@ jobs:
           exit 1
   job10:
     runs-on: self-hosted
-    needs: [job1, job2, job3,]
+    needs: [job1, job2, job3, job4]
     if: always() && (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success')
     steps:
       - name: Slack Notification
@@ -69,7 +69,7 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire: : '
+          SLACK_TITLE: 'Message :fire::fire::fire: : /giphy this is fine'
           SLACK_MESSAGE: '@patricia pushed commits, but something failed '
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
