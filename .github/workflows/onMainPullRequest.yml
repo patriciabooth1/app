@@ -12,11 +12,45 @@ jobs:
           export GOBIN=$GOPATH/bin && \
           export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
           make clean test-unit
-      - name: Run
-        uses: abeyuya/actions-mention-to-slack@v2
-        with:
-          repo-token: ${{ secrets.pat }}
-          slack-webhook-url: ${{ secrets.SLACKWEBHOOK }}
-          icon-url: https://assets.coincover.com/images/logo-square.png
-          bot-name: "Send Mention from abeyuya/actions-mention-to-slack"
-          run-id: ${{ github.run_id }}
+  job10:
+    runs-on: self-hosted
+    needs: [test-unit]
+    if: (needs.test-unit.result == 'success')
+    steps:
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+          SLACK_CHANNEL: coincover-devops-alert
+          SLACK_COLOR: ${{ job.status }}
+          SLACK_ICON: https://assets.coincover.com/images/logo-square.png
+          SLACK_TITLE: 'Message :partyparrot:  successful:  '
+          SLACK_MESSAGE: ''
+          SLACK_USERNAME: Github
+          SLACK_LINK_NAMES: true
+          SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
+          SLACK_MSG_AUTHOR: ${{ github.actor }}
+      - name: Slack Notification Post
+        run: |
+          echo "$NEEDS_CONTEXT"
+  run-if-failed:
+    runs-on: self-hosted
+    needs: [test-unit]
+    if: always() && (needs.test-unit.result == 'failure')
+    steps:
+      - name: Slack Notification
+        uses: rtCamp/action-slack-notify@v2
+        env:
+          NEEDS_CONTEXT: ${{ toJSON(needs) }}
+          SLACK_CHANNEL: coincover-devops-alert
+          SLACK_COLOR: '#CC0000'
+          SLACK_ICON: https://assets.coincover.com/images/logo-square.png
+          SLACK_TITLE: 'Message :fire::fire::fire:  something failed :'
+          SLACK_MESSAGE: ''
+          SLACK_USERNAME: Github
+          SLACK_LINK_NAMES: true
+          SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
+          SLACK_MSG_AUTHOR: ${{ github.actor }}
+      - name: Slack Notification Post
+        run: |
+          echo "$NEEDS_CONTEXT"
