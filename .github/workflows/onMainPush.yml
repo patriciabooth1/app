@@ -67,7 +67,7 @@ jobs:
     if: always() && (needs.job1.result == 'failure' || needs.job2.result == 'failure'|| needs.job3.result == 'failure'|| needs.job4.result == 'failure'|| needs.job5.result == 'failure')
     steps:
       - name: Slack Notification
-        uses: rtCamp/action-slack-notify@v2
+      - uses: rtCamp/action-slack-notify@v2
         env:
           NEEDS_CONTEXT: ${{ toJSON(needs) }}
           SLACK_CHANNEL: coincover-devops-alert
@@ -79,5 +79,5 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-        run: |
+      -  run: |
           echo "$NEEDS_CONTEXT"
