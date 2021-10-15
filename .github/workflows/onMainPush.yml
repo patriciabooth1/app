@@ -21,6 +21,8 @@ jobs:
       - name: Log in to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        with:
+          aws-region: eu-west-2
   job4:
     runs-on: self-hosted
     steps:
@@ -51,6 +53,8 @@ jobs:
           exit 1
   job10:
     runs-on: self-hosted
+    needs: [job1, job2, job3, job4, job5, job6,]
+    if: ${{ always() && contains(needs.*.result, 'success') }}
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
