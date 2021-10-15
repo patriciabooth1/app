@@ -53,7 +53,7 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :partyparrot:  successful:  '
+          SLACK_TITLE: 'Message :partyparrot:  successful: @here'
           SLACK_MESSAGE: ''
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
@@ -74,7 +74,7 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire:  something failed:'
+          SLACK_TITLE: 'Message :fire::fire::fire:  something failed @here:'
           SLACK_MESSAGE: ''
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
@@ -83,22 +83,3 @@ jobs:
       - name: Slack Notification Post
         run: |
           echo "$NEEDS_CONTEXT"
-  slack-user:
-    runs-on: self-hosted
-    steps:
-      - name: slack tag users
-        uses: ravsamhq/notify-slack-action@v1
-        if: always()
-        with:
-          status: ${{ job.status }}
-          notification_title: 'Needed for Pull Request'
-          message_format: 'Please look at failed commits: {:speaking_head_in_silhouette:} *{Main}* {failed} in {https://github.com/patriciabooth1/app.git}|{app}'
-          notify_when: 'failure'
-          mention_users: 'U02HSKQ8DTM'
-          mention_users_when: 'failure,warnings'
-          footer: 'Linked Repo {https://github.com/patriciabooth1/app.git}|{app} '
-          mention_groups: 'prodeng'
-          mention_groups_when: 'failure,warnings'
-          token: ${{ secrets.SLACKWEBHOOK }}
-        env:
-          SLACK_WEBHOOK_URL: ${{ secrets.SLACKWEBHOOK }}
