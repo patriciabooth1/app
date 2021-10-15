@@ -37,7 +37,7 @@ jobs:
   job4:
     runs-on: self-hosted
     steps:
-      - name: Fail
+      - name: test Fail
         run: |
           exit 1
   job10:
@@ -69,7 +69,7 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire: : /giphy this is fine'
+          SLACK_TITLE: '/giphy this is fine Message :fire::fire::fire: : /giphy this is fine'
           SLACK_MESSAGE: '@patricia pushed commits, but something failed '
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
