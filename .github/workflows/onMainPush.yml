@@ -43,7 +43,7 @@ jobs:
   job10:
     runs-on: self-hosted
     needs: [job1, job2, job3, job4]
-    if: always() && (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success')
+    if: always() && (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success' || needs.job4.result == 'success')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
