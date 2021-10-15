@@ -75,7 +75,8 @@ jobs:
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :fire::fire::fire:  something failed:'
-          SLACK_MESSAGE: 'Post Content @here'
+          SLACK_MESSAGE: '@here'
+          SLACK_MESSAGE: ''
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
