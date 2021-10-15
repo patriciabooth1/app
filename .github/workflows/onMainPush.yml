@@ -56,6 +56,7 @@ jobs:
           SLACK_TITLE: 'Message :partyparrot: '
           SLACK_MESSAGE: 'successful @here'
           SLACK_USERNAME: Github
+          MSG_MINIMAL: event, actions url
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
@@ -77,10 +78,9 @@ jobs:
           SLACK_TITLE: 'Message :fire::fire::fire:'
           SLACK_MESSAGE: 'something failed @here'
           SLACK_USERNAME: Github
-          MSG_MINIMAL: event,actions url
+          MSG_MINIMAL: event, actions url
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
-
           SLACK_MSG_AUTHOR: ${{ github.actor }}
       - name: Slack Notification Post
         run: |
