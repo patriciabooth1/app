@@ -74,7 +74,7 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire:  something failed :'
+          SLACK_TITLE: 'Message :fire::fire::fire:  something failed:'
           SLACK_MESSAGE: ''
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
@@ -88,6 +88,7 @@ jobs:
     steps:
       - name: slack tag users
         uses: ravsamhq/notify-slack-action@v1
+        if: always()
         with:
           status: ${{ job.status }}
           notification_title: 'Needed for Pull Request'
