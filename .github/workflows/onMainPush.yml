@@ -79,5 +79,6 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-      -  run: |
-          echo "$NEEDS_CONTEXT"
+      - name: Slack Notification
+          run: |
+            echo "$NEEDS_CONTEXT"
