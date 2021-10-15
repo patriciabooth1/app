@@ -67,7 +67,7 @@ jobs:
   run-if-failed:
     runs-on: self-hosted
     needs: [job1, job2, job3, job4, job5, job6, job7]
-    if: always() && (needs.job1.result == 'failure' || needs.job2.result == 'failure'|| needs.job3.result == 'failure'|| needs.job4.result == 'failure'|| needs.job5.result == 'failure')
+    if: always() && (needs.job1.result == 'failure' || needs.job2.result == 'failure'|| needs.job3.result == 'failure'|| needs.job4.result == 'failure'|| needs.job5.result == 'failure' || needs.job5.result == 'failure')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
