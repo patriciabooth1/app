@@ -12,21 +12,20 @@ jobs:
           export GOBIN=$GOPATH/bin && \
           export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
           make clean test-unit
-  test-fail:
-    runs-on: self-hosted
-    steps:
-      - name: test Fail
-        run: |
-          exit 1
+#  test-fail:
+#    runs-on: self-hosted
+#    steps:
+#      - name: test Fail
+#        run: |
+#          exit 1
   job10:
     runs-on: self-hosted
-    needs: [test-unit, test-fail]
-    if: (needs.test-unit.result == 'success' || needs.test-fail.result == 'success')
+    needs: [test-unit]
+    if: (needs.test-unit.result == 'success')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-#          NEEDS_CONTEXT: ${{ toJSON(needs) }}
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
@@ -37,19 +36,15 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-#      - name: Slack Notification Post
-#        run: |
-#          echo "$NEEDS_CONTEXT"
 
   run-if-failed:
     runs-on: self-hosted
-    needs: [test-unit, test-fail]
-    if: always() && (needs.test-unit.result == 'failure' || needs.test-fail.result == 'failure')
+    needs: [test-unit]
+    if: always() && (needs.test-unit.result == 'failure')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-#          NEEDS_CONTEXT: ${{ toJSON(needs) }}
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
@@ -60,6 +55,3 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-#      - name: Slack Notification Post
-#        run: |
-#          echo "$NEEDS_CONTEXT"

@@ -48,7 +48,6 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-          NEEDS_CONTEXT: ${{ toJSON(needs) }}
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
@@ -59,9 +58,6 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-      - name: Slack Notification Post
-        run: |
-          echo "$NEEDS_CONTEXT"
   run-if-failed:
     runs-on: self-hosted
     needs: [job1, job2, job3]
@@ -70,7 +66,6 @@ jobs:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
-          NEEDS_CONTEXT: ${{ toJSON(needs) }}
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
@@ -81,6 +76,3 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-      - name: Slack Notification Post
-        run: |
-          echo "$NEEDS_CONTEXT"
