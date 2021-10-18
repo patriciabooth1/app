@@ -25,7 +25,8 @@ jobs:
     steps:
       - name: env var for PR link
         run: |
-          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{github.head_ref}}'" >> $GITHUB_ENV
+          echo "GET_REF=${{github.ref}} || cut -c 1-6)" >> $GITHUB_ENV
+          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{env.GET_REF}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -46,7 +47,8 @@ jobs:
     steps:
       - name: env var for PR link
         run: |
-          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{github.head_ref}}'" >> $GITHUB_ENV
+          echo "GET_REF=${{github.ref}} || cut -c 1-6)" >> $GITHUB_ENV"
+          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{env.GET_REF}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
