@@ -34,17 +34,17 @@ jobs:
     steps:
       - name: Clean up old Docker images
         run: docker system prune -a -f
-  job4:
-    runs-on: self-hosted
-    steps:
-      - name: test Fail
-        run: |
-          exit 1
+#  job4:
+#    runs-on: self-hosted
+#    steps:
+#      - name: test Fail
+#        run: |
+#          exit 1
 
   job10:
     runs-on: self-hosted
-    needs: [job1, job2, job3, job4]
-    if: (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success' || needs.job4.result == 'success')
+    needs: [job1, job2, job3]
+    if: (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
@@ -65,8 +65,8 @@ jobs:
           echo "$NEEDS_CONTEXT"
   run-if-failed:
     runs-on: self-hosted
-    needs: [job1, job2, job3, job4]
-    if: always() && (needs.job1.result == 'failure' || needs.job2.result == 'failure'|| needs.job3.result == 'failure' || needs.job4.result == 'failure')
+    needs: [job1, job2, job3]
+    if: always() && (needs.job1.result == 'failure' || needs.job2.result == 'failure'|| needs.job3.result == 'failure')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
