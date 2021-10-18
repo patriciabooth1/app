@@ -25,7 +25,7 @@ jobs:
     steps:
       - name: env var for PR link
         run: |
-          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{github.ref}}'" >> $GITHUB_ENV
+          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{github.head_ref}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -39,7 +39,6 @@ jobs:
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-          GET_PR_URL: 'https://github.com/${{ github.actor }}/${{github.ref}}'
   run-if-failed:
     runs-on: self-hosted
     needs: [test-unit, test-fail]
@@ -47,7 +46,7 @@ jobs:
     steps:
       - name: env var for PR link
         run: |
-          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{github.ref}}'" >> $GITHUB_ENV
+          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{github.head_ref}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
