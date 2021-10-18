@@ -12,6 +12,7 @@ jobs:
           export GOBIN=$GOPATH/bin && \
           export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
           make clean test-unit
+
   job10:
     runs-on: self-hosted
     needs: [test-unit]
@@ -24,9 +25,10 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :partyparrot:  successful:  '
-          SLACK_MESSAGE: ''
+          SLACK_TITLE: 'Message :partyparrot: '
+          SLACK_MESSAGE: 'successful @here'
           SLACK_USERNAME: Github
+          MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
@@ -45,9 +47,10 @@ jobs:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire:  something failed :'
-          SLACK_MESSAGE: ''
+          SLACK_TITLE: 'Message :fire::fire::fire:'
+          SLACK_MESSAGE: 'something failed @here'
           SLACK_USERNAME: Github
+          MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
