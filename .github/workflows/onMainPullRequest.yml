@@ -23,10 +23,6 @@ jobs:
     needs: [test-unit]
     if: (needs.test-unit.result == 'success')
     steps:
-      - name: Output PR link
-        uses: kceb/pull-request-url-action@v1
-        id: urlPR
-        run: echo "${{ steps.urlPR.outputs.url }}"
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
