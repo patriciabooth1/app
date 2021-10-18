@@ -41,7 +41,6 @@ jobs:
           SLACK_TITLE: 'Message :partyparrot: '
           SLACK_MESSAGE: '@here \n Successful, all checks passed :white_check_mark: Review using the link'
           SLACK_USERNAME: Github
-          MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
@@ -55,7 +54,6 @@ jobs:
           SLACK_TITLE: 'Message :fire::fire::fire:'
           SLACK_MESSAGE: '@here Something failed :x:  Review using the link'
           SLACK_USERNAME: Github
-          MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
