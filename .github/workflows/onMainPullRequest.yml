@@ -16,6 +16,9 @@ jobs:
         shell: bash
         run: echo "##[set-output name=pr;]$(echo $GITHUB_REF | sed -E 's/^refs\/pull\/(.*)\/merge$/\1/')"
         id: extract_pr_number
+      - name: test Fail
+        run: |
+          exit 1
       - name: Slack Notification
         if: success()
         uses: rtCamp/action-slack-notify@v2
