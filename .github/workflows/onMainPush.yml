@@ -36,7 +36,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here \n Successful, all checks passed :white_check_mark: Review using the link'
+          SLACK_MESSAGE: "@here \n Successful all checks passed :white_check_mark: \n Review using the link"
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
@@ -49,7 +49,7 @@ jobs:
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :fire::fire::fire:'
-          SLACK_MESSAGE: '@here Something failed :x:  Review using the link'
+          SLACK_MESSAGE: "@here \n Something failed :x:  \n Review using the link"
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
