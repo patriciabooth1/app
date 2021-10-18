@@ -23,6 +23,9 @@ jobs:
     needs: [test-unit, test-fail]
     if: (needs.test-unit.result == 'success' || needs.test-fail.result == 'success')
     steps:
+      - name: env var for PR link
+        run: |
+          echo  "GET_PR_URL='https://github.com/${{ github.actor }}/${{github.ref}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -30,7 +33,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here All checks have passed :white_check_mark:! Review pull request using the link ${{GET_PR_URL}}'
+          SLACK_MESSAGE: '@here All checks have passed :white_check_mark:! Review pull request using the link $GET_PR_URL'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
