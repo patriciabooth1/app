@@ -26,6 +26,7 @@ jobs:
       - name: env var for PR link
         run: |
           echo "GET_REF=${{github.ref}} | sed -E 's/^refs\/pull\/(.*)\/merge$/\1/'" >> $GITHUB_ENV
+          echo "${{env.GET_REF}}"
           echo "GET_PR_URL='https://github.com/${{ github.actor }}/app/pull/${{env.GET_REF}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
