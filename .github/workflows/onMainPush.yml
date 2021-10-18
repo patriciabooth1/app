@@ -28,6 +28,9 @@ jobs:
         run: docker logout 315199611892.dkr.ecr.eu-west-2.amazonaws.com
       - name: Clean up old Docker images
         run: docker system prune -a -f
+      - name: test Fail
+        run: |
+          exit 1
       - name: Slack Notification
         if: success()
         uses: rtCamp/action-slack-notify@v2
@@ -36,7 +39,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here Successful, all checks passed :white_check_mark: Review using the link'
+          SLACK_MESSAGE: '@here \n Successful, all checks passed :white_check_mark: Review using the link'
           SLACK_USERNAME: Github
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
