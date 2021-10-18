@@ -24,7 +24,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here All checks have passed :white_check_mark: Review pull request using the link https://github.com/${{ github.actor }}/app/pull/${{ steps.extract_pr_number.outputs.pr }}'
+          SLACK_MESSAGE: '@here  All checks have passed :white_check_mark: Review pull request using the link https://github.com/${{ github.actor }}/app/pull/${{ steps.extract_pr_number.outputs.pr }}'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,ref
           SLACK_LINK_NAMES: true

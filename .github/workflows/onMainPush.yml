@@ -30,7 +30,7 @@ jobs:
         run: docker system prune -a -f
       - name: test Fail
         run: |
-          exit 1        
+          exit 1
       - name: Slack Notification
         if: success()
         uses: rtCamp/action-slack-notify@v2
@@ -39,7 +39,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here Successful, all checks passed :white_check_mark: Review using the link'
+          SLACK_MESSAGE: '@here \n Successful, all checks passed :white_check_mark: Review using the link'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
