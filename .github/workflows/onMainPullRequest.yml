@@ -25,8 +25,8 @@ jobs:
     steps:
       - name: env var for PR link
         run: |
-          echo "GET_REF=$(echo {{github.ref}} | sed -E 's/^refs\/pull\/(.*)\1/')" >> $GITHUB_ENV
-          echo "GET_PR_URL='https://github.com/${{ github.actor }}/${{env.GET_REF}}'" >> $GITHUB_ENV
+          echo "GET_REF=$(echo {{github.ref}} |sed -E 's/^refs\/pull\/(.*)\/merge$/\1/')" >> $GITHUB_ENV
+          echo "GET_PR_URL='https://github.com/${{ github.actor }}/app/pull/${{env.GET_REF}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -47,8 +47,8 @@ jobs:
     steps:
       - name: env var for PR link
         run: |
-          echo "GET_REF=$(echo {{github.ref}} | sed -E 's/^refs\/pull\/(.*)\1/')" >> $GITHUB_ENV
-          echo "GET_PR_URL='https://github.com/${{ github.actor }}/${{env.GET_REF}}'" >> $GITHUB_ENV
+          echo "GET_REF=$(echo {{github.ref}} |sed -E 's/^refs\/pull\/(.*)\/merge$/\1/')" >> $GITHUB_ENV
+          echo "GET_PR_URL='https://github.com/${{ github.actor }}/app/pull/${{env.GET_REF}}'" >> $GITHUB_ENV
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
