@@ -23,11 +23,10 @@ jobs:
     needs: [test-unit, test-fail]
     if: (needs.test-unit.result == 'success' || needs.test-fail.result == 'success')
     steps:
-      - name: env var for PR link
-        run: |
-          echo "GET_REF=${{github.ref}} | sed -E 's/^refs\/pull\/(.*)\/merge$/\1/'" >> $GITHUB_ENV
-          echo "${{env.GET_REF}}"
-          echo "GET_PR_URL='https://github.com/${{ github.actor }}/app/pull/${{env.GET_REF}}'" >> $GITHUB_ENV
+      - name: Extract PR Number
+        shell: bash
+        run: echo "##[set-output name=pr;]$(echo $GITHUB_REF | sed -E 's/^refs\/pull\/(.*)\/merge$/\1/')"
+        id: extract_pr_number
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -35,7 +34,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here All checks have passed :white_check_mark:! Review pull request using the link ${{env.GET_PR_URL}}'
+          SLACK_MESSAGE: '@here All checks have passed :white_check_mark:! Review pull request using the link https://github.com/${{ github.actor }}/app/pull/${{ steps.extract_pr_number.outputs.pr }}'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
@@ -46,11 +45,10 @@ jobs:
     needs: [test-unit, test-fail]
     if: always() && (needs.test-unit.result == 'failure' || needs.test-fail.result == 'failure')
     steps:
-      - name: env var for PR link
-        run: |
-          echo "GET_REF=${{github.ref}} | sed -E 's/^refs\/pull\/(.*)\/merge$/\1/'" >> $GITHUB_ENV
-          echo "${{env.GET_REF}}"
-          echo "GET_PR_URL='https://github.com/${{ github.actor }}/app/pull/${{env.GET_REF}}'" >> $GITHUB_ENV
+      - name: Extract PR Number
+        shell: bash
+        run: echo "##[set-output name=pr;]$(echo $GITHUB_REF | sed -E 's/^refs\/pull\/(.*)\/merge$/\1/')"
+        id: extract_pr_number
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -58,7 +56,7 @@ jobs:
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :fire::fire::fire:'
-          SLACK_MESSAGE: '@here Something failed :x:! Review pull request using the link ${{env.GET_PR_URL}}'
+          SLACK_MESSAGE: '@here Something failed :x:! Review pull request using the link https://github.com/${{ github.actor }}/app/pull/${{ steps.extract_pr_number.outputs.pr }}'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
