@@ -44,7 +44,7 @@ jobs:
   run-if-failed:
     runs-on: self-hosted
     needs: [test-unit, test-fail]
-    if: always() && (needs.test-unit.result == 'failure', needs.test-fail.result == 'failure')
+    if: always() && (needs.test-unit.result == 'failure' || needs.test-fail.result == 'failure')
     steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
