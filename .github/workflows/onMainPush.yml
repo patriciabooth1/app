@@ -3,7 +3,7 @@ on:
     branches:
       - main
 jobs:
-  job1:
+  publish:
     runs-on: self-hosted
     steps:
       - name: Checkout
@@ -23,54 +23,34 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-  job2:
-    runs-on: self-hosted
-    steps:
       - name: Log out of Amazon ECR
         if: always()
         run: docker logout 315199611892.dkr.ecr.eu-west-2.amazonaws.com
-  job3:
-    runs-on: self-hosted
-    steps:
       - name: Clean up old Docker images
         run: docker system prune -a -f
-#  job4:
-#    runs-on: self-hosted
-#    steps:
-#      - name: test Fail
-#        run: |
-#          exit 1
-  job10:
-    runs-on: self-hosted
-    needs: [job1, job2, job3]
-    if: (needs.job1.result == 'success' || needs.job2.result == 'success'|| needs.job3.result == 'success')
-    steps:
       - name: Slack Notification
+        if: success()
         uses: rtCamp/action-slack-notify@v2
         env:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here Successful, all checks passed :white_check_mark:! Review using the link'
+          SLACK_MESSAGE: '@here Successful, all checks passed :white_check_mark: Review using the link'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
           SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
           SLACK_MSG_AUTHOR: ${{ github.actor }}
-  run-if-failed:
-    runs-on: self-hosted
-    needs: [job1, job2, job3]
-    if: always() && (needs.job1.result == 'failure' || needs.job2.result == 'failure'|| needs.job3.result == 'failure')
-    steps:
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
+        if: failure()
         env:
           SLACK_CHANNEL: coincover-devops-alert
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :fire::fire::fire:'
-          SLACK_MESSAGE: '@here Something failed :x: ! Review using the link'
+          SLACK_MESSAGE: '@here Something failed :x:  Review using the link'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
