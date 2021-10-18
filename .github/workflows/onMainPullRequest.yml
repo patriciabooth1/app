@@ -33,7 +33,7 @@ jobs:
           SLACK_COLOR: ${{ job.status }}
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here All checks have passed :white_check_mark:! Review pull request using the link $GET_PR_URL'
+          SLACK_MESSAGE: '@here All checks have passed :white_check_mark:! Review pull request using the link ${{GET_PR_URL}}'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
@@ -55,7 +55,7 @@ jobs:
           SLACK_COLOR: '#CC0000'
           SLACK_ICON: https://assets.coincover.com/images/logo-square.png
           SLACK_TITLE: 'Message :fire::fire::fire:'
-          SLACK_MESSAGE: '@here Something failed :x:! Review pull request using the link $GET_PR_URL'
+          SLACK_MESSAGE: '@here Something failed :x:! Review pull request using the link ${{GET_PR_URL}}'
           SLACK_USERNAME: Github
           MSG_MINIMAL: event,actions url,ref
           SLACK_LINK_NAMES: true
