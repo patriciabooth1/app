@@ -25,10 +25,9 @@ jobs:
     steps:
       - name: get PR url
         uses: kceb/pull-request-url-action@v1
-        id: getPRurl
+        id: pr-url
         env:
-          GET_PR_URL: getPRurl
-        run: echo "${{ steps.getPRurl.outputs.url }}"
+          GET_PR_URL: ${{ steps.pr-url.outputs.url }}
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
@@ -50,10 +49,9 @@ jobs:
     steps:
       - name: get PR url
         uses: kceb/pull-request-url-action@v1
-        id: getPRurl
+        id: pr-url
         env:
-          GET_PR_URL: getPRurl
-        run: echo "${{ steps.getPRurl.outputs.url }}"
+          GET_PR_URL: "${{ steps.pr-url.outputs.url }}"
       - name: Slack Notification
         uses: rtCamp/action-slack-notify@v2
         env:
