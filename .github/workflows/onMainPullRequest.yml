@@ -25,7 +25,6 @@ jobs:
         uses: HighwayThree/jira-extract-issue-keys@master
         with:
             parse-all-commits: ${{ github.event_name == 'push' }}
-            commit-message: ''
       - name: Transition Issue
         uses: atlassian/gajira-transition@master
         with:
