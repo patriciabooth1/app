@@ -26,7 +26,7 @@ jobs:
         with:
           string: ${{ github.event.pull_request.title }}
       - name: Run a one-line script
-      - run: echo "${{ steps.find_key.outputs.issue }}"
+        run: echo "${{ steps.find_key.outputs.issue }}"
       - name: Transition Issue
         uses: atlassian/gajira-transition@master
         with:
