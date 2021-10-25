@@ -21,11 +21,11 @@ jobs:
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: find new key
-        id: Find Issue Key
+        id: issue
         uses: atlassian/gajira-create@master
 
       - name: Transition issue
         uses: atlassian/gajira-transition@master
         with:
-          issue: ${{ steps.FindIssueKey.outputs.issue }}
+          issue: ${{ steps.issue.outputs.issue }}
           transition: "In progress"
