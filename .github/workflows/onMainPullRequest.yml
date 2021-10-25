@@ -24,7 +24,6 @@ jobs:
         id: find_key
         uses: HighwayThree/jira-extract-issue-keys@master
         with:
-            is-pull-request: ${{ github.event_name == 'pull_request' }}
             parse-all-commits: ${{ github.event_name == 'push' }}
             commit-message: ''
       - name: Transition Issue
