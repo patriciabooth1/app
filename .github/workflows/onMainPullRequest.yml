@@ -21,6 +21,7 @@ jobs:
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Find issue key in commit
+        it: find_key
         uses: HighwayThree/jira-extract-issue-keys@master
         with:
             is-pull-request: ${{ github.event_name == 'pull_request' }}
@@ -29,5 +30,5 @@ jobs:
       - name: Transition Issue
         uses: atlassian/gajira-transition@master
         with:
-          issue: ${{ steps.fine_key.outputs.issue }}
+          issue: ${{ steps.find_key.outputs.issue }}
           transition: "In Progress"
