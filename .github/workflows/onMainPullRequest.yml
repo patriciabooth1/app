@@ -20,13 +20,12 @@ jobs:
           JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
           JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-      - name: Find issue key in commit
-        id: find_key
-        uses: HighwayThree/jira-extract-issue-keys@master
-        with:
-            parse-all-commits: ${{ github.event_name == 'push' }}
-      - name: Transition Issue
+      - name: find new key
+        id: Find Issue Key
+        uses: atlassian/gajira-create@master
+
+      - name: Transition issue
         uses: atlassian/gajira-transition@master
         with:
-          issue: ${{ steps.find_key.outputs.issue }}
-          transition: "In Progress"
+          issue: ${{ steps.FindIssueKey.outputs.issue }}
+          transition: "In progress"
