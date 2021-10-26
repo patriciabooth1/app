@@ -25,10 +25,10 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
       - name: Find Issue Key
-        uses: ./
+        uses: atlassian/gajira-find-issue-key@master
+        id: findissuekey
         with:
           from: commits
-
       - name: Transition issue
         uses: atlassian/gajira-transition@master
         with:
