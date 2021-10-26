@@ -22,9 +22,9 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: Check Commit Type
         uses: gsactions/commit-message-checker@v1
-        id: find    
+        id: find
         with:
-          pattern: '\[[^]]+\] .+$'
+          pattern: '([A-ZA-Z0-9]{1,10}-\d+)'
           error: 'Your first line has to contain a commit type like "[BUGFIX]".'
       - name: Transition issue
         uses: atlassian/gajira-transition@master
