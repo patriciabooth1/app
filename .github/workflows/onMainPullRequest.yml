@@ -7,38 +7,32 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.event.pull_request.head.sha }}
       - run: |
           export GOPATH=$HOME/go && \
           export GOBIN=$GOPATH/bin && \
           export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
           make clean test-unit
-      - name: Extract PR Number
-        shell: bash
-        run: echo "##[set-output name=pr;]$(echo $GITHUB_REF | sed -E 's/^refs\/pull\/(.*)\/merge$/\1/')"
-        id: extract_pr_number
-      - name: Slack Notification
-        if: success()
-        uses: rtCamp/action-slack-notify@v2
+
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Login
+        uses: atlassian/gajira-login@master
         env:
-          SLACK_CHANNEL: coincover-devops-alert
-          SLACK_COLOR: ${{ job.status }}
-          SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :partyparrot: '
-          SLACK_MESSAGE: '@here All checks have passed :white_check_mark:! Review pull request using the link https://github.com/${{ github.actor }}/app/pull/${{ steps.extract_pr_number.outputs.pr }}'
-          SLACK_USERNAME: Github
-          SLACK_LINK_NAMES: true
-          SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
-          SLACK_MSG_AUTHOR: ${{ github.actor }}
-      - name: Slack Notification
-        if: failure()
-        uses: rtCamp/action-slack-notify@v2
-        env:
-          SLACK_CHANNEL: coincover-devops-alert
-          SLACK_COLOR: '#CC0000'
-          SLACK_ICON: https://assets.coincover.com/images/logo-square.png
-          SLACK_TITLE: 'Message :fire::fire::fire:'
-          SLACK_MESSAGE: '@here Something failed :x:! Review pull request using the link https://github.com/${{ github.actor }}/app/pull/${{ steps.extract_pr_number.outputs.pr }}'
-          SLACK_USERNAME: Github
-          SLACK_LINK_NAMES: true
-          SLACK_WEBHOOK: ${{ secrets.SLACKWEBHOOK }}
-          SLACK_MSG_AUTHOR: ${{ github.actor }}
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+
+      - name: Find Issue Key
+        uses: atlassian/gajira-find-issue-key@master
+        id: findissuekey
+        with:
+          string: ${{ github.event.pull_request.title }}
+
+      - name: Transition issue
+        uses: atlassian/gajira-transition@master
+        with:
+          issue: ${{ steps.findissuekey.outputs.issue }}
+          transition: "Test"
