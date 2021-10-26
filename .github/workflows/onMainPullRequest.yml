@@ -27,8 +27,7 @@ jobs:
       - name: Find in commit messages
         id: find
         run : |
-          echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
-          
+          echo "##[set-output name=message;]$(git log --no-merges -1 --oneline)"
       - name: Transition issue
         uses: tuanddd/jira-automate-transition@v1.0.5
         with:
