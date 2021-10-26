@@ -14,6 +14,7 @@ jobs:
           export GOBIN=$GOPATH/bin && \
           export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
           make clean test-unit
+
       - name: Checkout
         uses: actions/checkout@master
 
@@ -29,7 +30,7 @@ jobs:
         id: findissuekey
         with:
           string: ${{ github.event.pull_request.title }}
-          
+
       - name: Transition issue
         uses: atlassian/gajira-transition@master
         with:
