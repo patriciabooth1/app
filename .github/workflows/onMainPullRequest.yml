@@ -27,7 +27,8 @@ jobs:
       - name: Find in commit messages
         id: find
         run : |
-          ISSUE_KEY=$(git log --format=%B -n 1 ${{ github.event.after }}) >> $GITHUB_ENV
+          echo ISSUE_KEY=$(git log -1 --pretty=format:"%s") >> $GITHUB_ENV
+          
 
       - name: Transition issue
         uses: tuanddd/jira-automate-transition@v1.0.5
