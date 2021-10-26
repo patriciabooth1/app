@@ -27,7 +27,7 @@ jobs:
       - name: Find in commit messages
         id: find
         run : |
-          echo "##[set-output name=message;]$(git log --format=%B -n 1 ${{ github.event.after }})"
+          echo "##[set-output name=message;]$(git log --format=%B -n 1 ${{ github.event.after }}) | '([A-ZA-Z0-9]{1,10}-\d+)'"
       - name: Transition issue
         uses: tuanddd/jira-automate-transition@v1.0.5
         with:
