@@ -35,4 +35,4 @@ jobs:
         uses: atlassian/gajira-transition@master
         with:
           issue: ${{ steps.findissuekey.outputs.issue }}
-          transition: "In Progress"
+          transition: "Test"
