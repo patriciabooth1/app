@@ -27,9 +27,8 @@ jobs:
       - name: Find in commit messages
         id: find
         run : |
-          echo ISSUE_KEY=${{github.event.commits[0].message}} >> $GITHUB_ENV
-
-
+          echo "::set-output name=message::$(git log --no-merges -1 --oneline)"
+          
       - name: Transition issue
         uses: tuanddd/jira-automate-transition@v1.0.5
         with:
@@ -37,4 +36,4 @@ jobs:
           column-to-move-to-when-review-requested: To Do
           column-to-move-to-when-changes-requested: In Progress
           column-to-move-to-when-merged: Done
-          jira-issue-id: ${{env.ISSUE_KEY}}
+          jira-issue-id: ${{steps.find.outputs.message}}
