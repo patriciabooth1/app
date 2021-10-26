@@ -26,7 +26,7 @@ jobs:
         if : |
           !contains(${{github.event.head_commit.message}}, '([A-ZA-Z0-9]{1,10}-\d+)')
         id: find
-        run : echo "ISSUE_KEY=${{ steps.find.outputs.* }}" >> $GITHUB_ENV
+        run : echo "ISSUE_KEY="${{ steps.find.outputs.* }}"" >> $GITHUB_ENV
 
       - name: Transition issue
         uses: tuanddd/jira-automate-transition@v1.0.5
