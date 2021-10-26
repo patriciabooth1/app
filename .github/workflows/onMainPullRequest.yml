@@ -27,7 +27,7 @@ jobs:
       - name: Find in commit messages
         id: find
         run : |
-          echo ISSUE_KEY=${{github.event.head_commit.message)) >> $GITHUB_ENV
+          echo ISSUE_KEY=${{github.event.head_commit.message}} >> $GITHUB_ENV
 
 
       - name: Transition issue
