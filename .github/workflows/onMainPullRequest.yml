@@ -24,7 +24,7 @@ jobs:
         id: find
         uses: cybervoid/gajira-get-issue@v1.0
         with:
-          input-text: ${{ github.event.ref }}
+          input-text: ${{ github.event.head_commit.message }}
       - name: Transition issue
         uses: atlassian/gajira-transition@master
         with:
