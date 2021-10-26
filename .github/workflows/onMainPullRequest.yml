@@ -25,7 +25,7 @@ jobs:
           id: find
           with:
             from: commits
-          pattern: '([A-ZA-Z0-9]{1,10}-\d+)'
+            pattern: '([A-ZA-Z0-9]{1,10}-\d+)'
       - name: Transition issue
         uses: atlassian/gajira-transition@master
         with:
