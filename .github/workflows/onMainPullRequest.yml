@@ -22,8 +22,8 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
       - name: find new key
         id: issue
+        project: Pat-Test
         uses: atlassian/gajira-create@master
-
       - name: Transition issue
         uses: atlassian/gajira-transition@master
         with:
