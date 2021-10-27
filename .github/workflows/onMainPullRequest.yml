@@ -15,9 +15,6 @@ jobs:
           export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
           make clean test-unit
 
-      - name: Checkout
-        uses: actions/checkout@master
-
       - name: Login
         if: success()
         uses: atlassian/gajira-login@master
