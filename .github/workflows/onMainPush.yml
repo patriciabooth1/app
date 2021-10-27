@@ -60,4 +60,4 @@ jobs:
         continue-on-error: true
         with:
           issue: ${{ steps.findissuekey.outputs.issue }}
-          transition: "Done"      
+          transition: "Done"
