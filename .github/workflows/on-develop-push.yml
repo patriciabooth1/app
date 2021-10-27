@@ -1,22 +1,15 @@
 on:
-  pull_request:
+  push:
     branches:
-      - main
+      - develop
 jobs:
-  test-unit:
+  publish:
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v2
-        with:
-          ref: ${{ github.event.pull_request.head.sha }}
-      - run: |
-          export GOPATH=$HOME/go && \
-          export GOBIN=$GOPATH/bin && \
-          export PATH=$GOBIN:$PATH:/usr/local/go/bin && \
-          make clean test-unit
+      - name: Checkout
+        uses: actions/checkout@v2
 
       - name: Login
-        if: success()
         uses: atlassian/gajira-login@master
         continue-on-error: true
         env:
@@ -25,7 +18,6 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
       - name: Find Issue Key
-        if: success()
         uses: atlassian/gajira-find-issue-key@master
         continue-on-error: true
         id: findissuekey
@@ -33,9 +25,8 @@ jobs:
           string: ${{ github.event.pull_request.title }}
 
       - name: Transition issue
-        if: success()
         uses: atlassian/gajira-transition@master
         continue-on-error: true
         with:
           issue: ${{ steps.findissuekey.outputs.issue }}
-          transition: "In Progress"
+          transition: "Done"

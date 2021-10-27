@@ -1,0 +1,23 @@
+on:
+  pull_request:
+    branches:
+      - develop
+jobs:
+  test-unit:
+    runs-on: self-hosted
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Find Issue Key
+        uses: atlassian/gajira-find-issue-key@master
+        id: findissuekey
+        continue-on-error: true
+        with:
+          string: ${{ github.event.pull_request.title }}
+
+      - name: Transition issue
+        uses: atlassian/gajira-transition@master
+        continue-on-error: true
+        with:
+          issue: ${{ steps.findissuekey.outputs.issue }}
+          transition: "In Progress"
