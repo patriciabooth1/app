@@ -25,13 +25,18 @@ jobs:
         uses: atlassian/gajira-find-issue-key@master
         continue-on-error: true
         id: findissuekey
+
         with:
           string: ${{ github.event.pull_request.title }}
 
       - name: Transition issue
         if: success()
         uses: atlassian/gajira-transition@master
+<<<<<<< HEAD
         continue-on-error: true
+=======
+
+>>>>>>> ab1e6dae06d408a67d83c75fdfe6cf7bbe688774
         with:
           issue: ${{ steps.findissuekey.outputs.issue }}
           transition: "Test"
