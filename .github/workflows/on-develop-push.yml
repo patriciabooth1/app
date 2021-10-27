@@ -8,9 +8,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-
-      - name: Find Issue Key
-        uses: atlassian/gajira-find-issue-key@master
         id: findissuekey
         with:
           string: ${{ github.event.pull_request.title }}
