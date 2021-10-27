@@ -7,17 +7,36 @@ jobs:
     runs-on: self-hosted
     steps:
       - uses: actions/checkout@v2
+      
+      - name: Checkout
+        uses: actions/checkout@master
+
+      - name: Login
+        if: success()
+        uses: atlassian/gajira-login@master
+        continue-on-error: true
+        env:
+          JIRA_BASE_URL: ${{ secrets.JIRA_BASE_URL }}
+          JIRA_USER_EMAIL: ${{ secrets.JIRA_USER_EMAIL }}
+          JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
       - name: Find Issue Key
+        if: success()
         uses: atlassian/gajira-find-issue-key@master
-        id: findissuekey
         continue-on-error: true
+        id: findissuekey
+
         with:
           string: ${{ github.event.pull_request.title }}
 
       - name: Transition issue
+        if: success()
         uses: atlassian/gajira-transition@master
+<<<<<<< HEAD
         continue-on-error: true
+=======
+
+>>>>>>> ab1e6dae06d408a67d83c75fdfe6cf7bbe688774
         with:
           issue: ${{ steps.findissuekey.outputs.issue }}
-          transition: "In Progress"
+          transition: "Test"

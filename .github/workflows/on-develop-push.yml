@@ -8,8 +8,13 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+<<<<<<< HEAD
+
+      - name: Checkout
+        uses: actions/checkout@master
 
       - name: Login
+        if: success()
         uses: atlassian/gajira-login@master
         continue-on-error: true
         env:
@@ -18,15 +23,19 @@ jobs:
           JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
 
       - name: Find Issue Key
+        if: success()
         uses: atlassian/gajira-find-issue-key@master
         continue-on-error: true
+=======
+>>>>>>> ab1e6dae06d408a67d83c75fdfe6cf7bbe688774
         id: findissuekey
         with:
           string: ${{ github.event.pull_request.title }}
 
       - name: Transition issue
+        if: success()
         uses: atlassian/gajira-transition@master
         continue-on-error: true
         with:
           issue: ${{ steps.findissuekey.outputs.issue }}
-          transition: "Done"
+          transition: "Test"
