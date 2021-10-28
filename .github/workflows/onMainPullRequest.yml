@@ -41,4 +41,4 @@ jobs:
         continue-on-error: true
         with:
           issue: ${{ steps.findissuekey.outputs.issue }}
-          transition: "In Test"
+          transition: "Test"
